@@ -7,10 +7,12 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>loveisquiet</title>
+    <title>呼噜娃 | loveisquiet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="为猫画眉">
+    
+    <meta name="description" content="photos: //">
     
     
     
@@ -68,25 +70,59 @@
 
     </header>
     <div id="container">
-      <div id="main">
-
-
-  <section class="_posts" itemscope itemprop="blogPost">
-  
-    <a href="/2014/11/23/呼噜娃/" title="呼噜娃" itemprop="url">
-  
-      <time datetime="2014-11-23T11:57:08.000Z" itemprop="datePublished">Nov 23 2014</time>
-    <h1 itemprop="name">呼噜娃</h1>
+      <div id="main" class="_posts" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >photos: //</p>
-        
+      <a href="/2014/11/23/呼噜娃/" title="呼噜娃" itemprop="url">呼噜娃</a>
+  </h1>
+  <p class="article-author">By
     
-  </a>
-</section>
+      <a href="http://yoursite.com" title="为猫画眉">为猫画眉</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-11-23T11:57:08.000Z" itemprop="datePublished">Nov 23 2014</time>
+    Updated:<time datetime="2014-11-23T12:00:20.000Z" itemprop="dateModified">Nov 23 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+		</div>
+		
+		<p>photos: //</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/photos/">photos</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2014/11/23/呼噜娃/" data-title="呼噜娃 | loveisquiet" data-tsina="null" class="share clearfix">
+  </div>
 
 </div>
+</footer>   	       
+	</article>
+	
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
@@ -179,6 +215,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -195,6 +233,38 @@ $(document).ready(function(){
   $(window).scroll(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
 });
 </script>
 
