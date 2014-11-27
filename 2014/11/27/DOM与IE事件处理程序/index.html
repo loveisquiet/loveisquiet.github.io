@@ -7,12 +7,13 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>呼噜娃 | loveisquiet</title>
+    <title>DOM与IE事件处理程序 | loveisquiet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="为猫画眉">
     
-    <meta name="description" content="photos: //">
+    <meta name="description" content="DOM2级事件处理程序对应的事件处理程序：
+onclick这种写法是DOM0级规范的写法，确实是所有的浏览器支持的，但是这种写法有一些弊端：这种写法不能同时绑定多个事件这种写法使代码耦合在了一起，addEventListener() 是DOM2标准中定义的方法，它可以控制是在事件捕获阶段或者是在冒泡">
     
     
     
@@ -75,15 +76,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/23/呼噜娃/" title="呼噜娃" itemprop="url">呼噜娃</a>
+      <a href="/2014/11/27/DOM与IE事件处理程序/" title="DOM与IE事件处理程序" itemprop="url">DOM与IE事件处理程序</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="为猫画眉">为猫画眉</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-11-23T11:57:08.000Z" itemprop="datePublished">Nov 23 2014</time>
-    Updated:<time datetime="2014-11-23T12:00:20.000Z" itemprop="dateModified">Nov 23 2014</time>
+    <time datetime="2014-11-27T04:05:34.000Z" itemprop="datePublished">Nov 27 2014</time>
+    Updated:<time datetime="2014-11-27T05:44:14.000Z" itemprop="dateModified">Nov 27 2014</time>
     
   </p>
 </header>
@@ -92,17 +93,29 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#DOM2级事件处理程序对应的事件处理程序："><span class="toc-number">1.</span> <span class="toc-text">DOM2级事件处理程序对应的事件处理程序：</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="####跨浏览器的事件处理程序："><span class="toc-number">1.0.1.</span> <span class="toc-text">###跨浏览器的事件处理程序：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件对象"><span class="toc-number"></span> <span class="toc-text">事件对象</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#属性："><span class="toc-number">0.0.1.</span> <span class="toc-text">属性：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#方法："><span class="toc-number">0.0.2.</span> <span class="toc-text">方法：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="######利用事件对象的实例："><span class="toc-number">0.0.3.</span> <span class="toc-text">#####利用事件对象的实例：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#############通过一个函数处理多个事件："><span class="toc-number">0.0.4.</span> <span class="toc-text">############通过一个函数处理多个事件：</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
-		<p>photos: //</p>
+		<h4 id="DOM2级事件处理程序对应的事件处理程序：">DOM2级事件处理程序对应的事件处理程序：</h4>
+<p>onclick这种写法是DOM0级规范的写法，确实是所有的浏览器支持的，但是这种写法有一些弊端：这种写法不能同时绑定多个事件<br>这种写法使代码耦合在了一起，<br>addEventListener() 是DOM2标准中定义的方法，<br>它可以控制是在事件捕获阶段或者是在冒泡阶段调用事件处理程序（由这个函数的第三个参数决定true/false），既然这个是DOM2标准中定义的，那么只有支持DOM2级事件处理程序的浏览器才支持这个方法（IE9,Firefox,Safari,Chrome和Opera都支持这个）。<br>attachEvent()方法并不是DOM标准定义的，而是IE自己实现的，而由于IE8及之前版本只支持事件冒泡，所以可想而知这个方法添加的事件处理程序都只能在冒泡阶段才会被调用，addEventListener()和attachEvent()还有一个区别就是第一个参数——事件类型，attachEvent()的事件类型都是前面带’on’的，比如点击事件 click ，addEventListener()可以传入 “click”，而 attachEvent() 却要传入 ‘onclick’；</p>
+<h6 id="###跨浏览器的事件处理程序：">###跨浏览器的事件处理程序：</h6>
+<p>var y={};<br>y.EventUntil = {<br>    addHandler: function(element, type, handler) {<br>        if(element.addEventListener){<br>            element.addEventListener(type, handler, false)；<br>        } //false表示在事件冒泡阶段调用<br>        else if(element.attachEvent){<br>            element.attachEvent(‘on’ + type, handler);<br>        } else {<br>            element[‘on’ + type] = handler;<br>        }<br>    }<br>    getEvent:function{<br>        return event?event:window.event;<br>    }<br>    getTarget:function(event){<br>        return event.target||event.srcElement;<br>    }<br>    preventDefault:function(event){<br>        if(event.preventDefault){<br>            event.preventDefault();<br>        }else{<br>            window.event.returnValue=false;<br>        }<br>    }<br>    removeHandler: function(element, type, handler) {<br>        if(element.removeEventListener){<br>            element.removeEventListener(element, type, handler);<br>        } else if(element.detachEvent){<br>            element.detachEvent(‘on’ + type, handler);<br>        } else {<br>            element[‘on’ + type] = null;<br>        }<br>    }<br>    stopPropagation:function(event){<br>        if(event.stopPropagation){<br>            event.stopPropagation();<br>        }else{<br>            window.event.cancelBubble=true;<br>        }<br>    }<br>};</p>
+<h3 id="事件对象">事件对象</h3>
+<p>DOM事件对象的属性和方法：</p>
+<h6 id="属性：">属性：</h6>
+<p>Boolean:bubbles,cancelable,defaultPrevented;<br>Element:currentTarget,target;<br>String:type</p>
+<h6 id="方法：">方法：</h6>
+<p>sotpPropagation(),stopimmediatePropagation()preventDefault（）;</p>
+<h6 id="#####利用事件对象的实例：">#####利用事件对象的实例：</h6>
+<h6 id="############通过一个函数处理多个事件：">############通过一个函数处理多个事件：</h6>
+<p>var div = document.getElementById(‘div’);<br>var handler=function(event){<br>    switch(event.type){<br>        case ‘click’://事件处理；<br>        break；<br>        case ‘mouseover’://事件处理；<br>        break；<br>        case ‘mouseout://事件处理；<br>        break；<br>     }<br>}；<br>div.onclick=handler;<br>div.onmouseover=handler;<br>div.onmouseout=handler;</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/photos/">photos</a>
+  <span></span> <a href="/tags/前端/">前端</a>
   </div>
 
 
@@ -110,7 +123,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/11/23/呼噜娃/" data-title="呼噜娃 | loveisquiet" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/11/27/DOM与IE事件处理程序/" data-title="DOM与IE事件处理程序 | loveisquiet" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -119,14 +132,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/11/24/HTTP详解/" title="">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  (no title)</span>
+
+<div class="next">
+<a href="/2014/11/24/HTTP详解/"  title="">
+ <strong>NEXT:</strong><br/> 
+ <span>(no title)
+</span>
 </a>
 </div>
-
 
 </nav>
 
