@@ -7,7 +7,7 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>loveisquiet</title>
+    <title>编写可维护的JavaScript—1 | loveisquiet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="为猫画眉">
@@ -68,58 +68,66 @@
 
     </header>
     <div id="container">
-      <div id="main">
+      <div id="main" class="_posts" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/05/编写可维护的JavaScript—1/" title="编写可维护的JavaScript—1" itemprop="url">编写可维护的JavaScript—1</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="为猫画眉">为猫画眉</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-12-05T11:53:04.000Z" itemprop="datePublished">Dec 5 2014</time>
+    Updated:<time datetime="2014-12-05T11:53:04.000Z" itemprop="dateModified">Dec 5 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+		</div>
+		
+		  
+	</div>
+		<footer class="article-footer clearfix">
 
 
-  <section class="_posts" itemscope itemprop="blogPost">
-  
-    <a href="/2014/12/05/编写可维护的JavaScript—1/" title="编写可维护的JavaScript—1" itemprop="url">
-  
-      <time datetime="2014-12-05T11:53:04.000Z" itemprop="datePublished">Dec 5 2014</time>
-    <h1 itemprop="name">编写可维护的JavaScript—1</h1>
-    
-     
-           <p itemprop="description" ></p>
-        
-    
-  </a>
-</section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/11/27/DOM与IE事件处理程序/" title="" itemprop="url">
-  
-      <time datetime="2014-11-27T04:05:34.000Z" itemprop="datePublished">Nov 27 2014</time>
-    <h1 itemprop="name"></h1>
-    
-     
-           <p itemprop="description" >layout: _poststitle: DOM与IE事件处理程序date: 2014-11-27 12:05:34
-tags:前端
-DOM2级事件处理程序对应的事件处理程序：
-onclick这种写法是DOM0级规范的写法，确实是所有的浏览器支持的，但是这种写法有一些弊端：这种写</p>
-        
-    
-  </a>
-</section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/11/24/HTTP详解/" title="" itemprop="url">
-  
-      <time datetime="2014-11-24T13:04:58.000Z" itemprop="datePublished">Nov 24 2014</time>
-    <h1 itemprop="name"></h1>
-    
-     
-           <p itemprop="description" >layout: _poststitle: HTTP详解date: 2014-11-24 21:04:58
-tags:前端
-引言HTTP是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。它于1990年提出，经过几年的使用与发展，得到不断地完善和扩</p>
-        
-    
-  </a>
-</section>
+<div class="article-share" id="share">
 
+  <div data-url="http://yoursite.com/2014/12/05/编写可维护的JavaScript—1/" data-title="编写可维护的JavaScript—1 | loveisquiet" data-tsina="null" class="share clearfix">
+  </div>
 
 </div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/11/27/DOM与IE事件处理程序/"  title="">
+ <strong>NEXT:</strong><br/> 
+ <span>(no title)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
@@ -207,6 +215,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -223,6 +233,38 @@ $(document).ready(function(){
   $(window).scroll(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
 });
 </script>
 
