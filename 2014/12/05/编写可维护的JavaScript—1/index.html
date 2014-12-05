@@ -7,14 +7,16 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>编写可维护的JavaScript—1 | loveisquiet</title>
+    <title>loveisquiet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="为猫画眉">
     
-    <meta name="description" content="/*
+    <meta name="description" content="layout: _poststitle: 编写可维护的JavaScript—1date: 2014-12-05 19:53:04
+tags:前端
+  /*
  ###关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象
- /    //不好的做法，因为事件处理程序包含了应用逻辑function handleClick(event){    var popup = document.getElementById(‘div’);    po">
+ /    //不好的做法，因为事件处理程序包含了应用逻辑functi">
     
     
     
@@ -72,12 +74,12 @@
 
     </header>
     <div id="container">
-      <div id="main" class="_posts" itemscope itemprop="blogPost">
+      <div id="main" class="post" itemscope itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/12/05/编写可维护的JavaScript—1/" title="编写可维护的JavaScript—1" itemprop="url">编写可维护的JavaScript—1</a>
+      <a href="/2014/12/05/编写可维护的JavaScript—1/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
     
@@ -85,7 +87,7 @@
     </p>
   <p class="article-time">
     <time datetime="2014-12-05T11:53:04.000Z" itemprop="datePublished">Dec 5 2014</time>
-    Updated:<time datetime="2014-12-05T12:08:59.000Z" itemprop="dateModified">Dec 5 2014</time>
+    Updated:<time datetime="2014-12-05T12:10:43.000Z" itemprop="dateModified">Dec 5 2014</time>
     
   </p>
 </header>
@@ -94,10 +96,12 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于各种比较，以及数据类型检测"><span class="toc-number">1.</span> <span class="toc-text">关于各种比较，以及数据类型检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将配置数据从代码中分离出来"><span class="toc-number"></span> <span class="toc-text">将配置数据从代码中分离出来</span></a>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.</span> <span class="toc-text">tags:前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于各种比较，以及数据类型检测"><span class="toc-number">1.1.</span> <span class="toc-text">关于各种比较，以及数据类型检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将配置数据从代码中分离出来"><span class="toc-number">2.</span> <span class="toc-text">将配置数据从代码中分离出来</span></a></li></ol>
 		</div>
 		
-		<p>  /*</p>
+		<p>layout: _posts<br>title: 编写可维护的JavaScript—1<br>date: 2014-12-05 19:53:04</p>
+<h2 id="tags:前端">tags:前端</h2>
+<p>  /*</p>
 <pre><code> <span class="comment">###关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象</span>
 </code></pre><p> <em>/<br>    //不好的做法，因为事件处理程序包含了应用逻辑<br>function handleClick(event){<br>    var popup = document.getElementById(‘div’);<br>    popup.style.left = event.clientX +’px’;<br>    popup.style.top = event.clientY + ‘px’;<br>    popup.className = ‘reveal’;<br>}<br>    element.addEventListener(‘click’,handleClick,false);<br>    //怎样将应用逻辑从事件处理程序中抽离<br>    //一下代码就将应用逻辑现在转移到了EventUntil.showPopup方法中<br>    var EventUntil = {<br>        handleClick: function(event) {<br>            this.showPopup(event);<br>        }<br>        showPopup: function(event) {<br>            var popup = document.getElementById(‘div’);<br>            popup.style.left = event.clientX +’px’;<br>            popup.style.top = event.clientY +’px’;<br>            popup.className = ‘reveal’;<br>        }<br>    }<br>    element.addEventListener(‘click’, function(event) {<br>        EventUntil.handleClick(event);<br>    },false);<br>    //在以上的代码上不要分发事件对象<br>    //好的API一定是对于期望和依赖都是透明的<br>    //在大型的应用中代码不够明晰就会导致BUG<br>    //综上较好的写法如下<br>    var EventUntil = {<br>        handleClick: function(event) {<br>            event.preventDefault();<br>            event.stopPropagation();<br>            this.showPopup(event.clientX,event.clientY);<br>        }<br>        //逻辑不需要对event对象产生依赖<br>        showPopup: function(x,y) {<br>            var popup = document.getElementById(‘div’);<br>            popup.style.left =x  +’px’;<br>            popup.style.top = y +’px’;<br>            popup.className = ‘reveal’;<br>        }<br>    }<br>    element.addEventListener(‘click’, function(event) {<br>        EventUntil.handleClick(event);<br>    },false);<br> /</em></p>
 <h3 id="关于各种比较，以及数据类型检测">关于各种比较，以及数据类型检测</h3>
@@ -131,17 +135,12 @@
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/前端/">前端</a>
-  </div>
-
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/12/05/编写可维护的JavaScript—1/" data-title="编写可维护的JavaScript—1 | loveisquiet" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/12/05/编写可维护的JavaScript—1/" data-title="loveisquiet" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -169,6 +168,11 @@
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.</span> <span class="toc-text">tags:前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于各种比较，以及数据类型检测"><span class="toc-number">1.1.</span> <span class="toc-text">关于各种比较，以及数据类型检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将配置数据从代码中分离出来"><span class="toc-number">2.</span> <span class="toc-text">将配置数据从代码中分离出来</span></a></li></ol>
+  </div>
+
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
@@ -194,7 +198,7 @@
 		
 			<li><a href="/tags/photos/" title="photos">photos<sup>0</sup></a></li>
 		
-			<li><a href="/tags/前端/" title="前端">前端<sup>1</sup></a></li>
+			<li><a href="/tags/前端/" title="前端">前端<sup>0</sup></a></li>
 		
 		</ul>
 </div>
@@ -210,15 +214,15 @@
   <div class="tagcloudlist">
     <p class="asidetitle">Tag Cloud</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/photos/" style="font-size: 10.00px;">photos</a><a href="/tags/前端/" style="font-size: 20.00px;">前端</a>
+       <a href="/tags/photos/" style="font-size: NaNpx;">photos</a><a href="/tags/前端/" style="font-size: NaNpx;">前端</a>
     </div>
   </div>
 
 
 </aside>
 </div>
-  </div>
-  <footer><div id="footer" >
+    </div>
+    <footer><div id="footer" >
     
             <p class="copyright"> © 2014 
 		
@@ -308,8 +312,69 @@ $(document).ready(function(){
 </script>
 
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
 
 
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
 
 
 
@@ -395,5 +460,5 @@ ga('send', 'pageview');
 
 
   </body>
- </html>
+</html>
 
