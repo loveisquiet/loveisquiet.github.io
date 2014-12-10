@@ -12,9 +12,13 @@
     
     <meta name="author" content="为猫画眉">
     
-    <meta name="description" content="layout: _poststitle: 编写可维护的JavaScript错误注解date: 2014-12-08 15:51:15
+    <meta name="description" content="编写可维护的JavaScript错误date: 2014-12-08 15:51:15
 tags:前端
-        Document            .hahaha{            width:100px;            hei">
+&amp;lt;head&amp;gt;
+&amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;
+&amp;lt;title&amp;gt;Document&amp;lt;/title&amp;gt;
+&amp;lt;style&amp;gt;
+    .h">
     
     
     
@@ -85,7 +89,7 @@ tags:前端
     </p>
   <p class="article-time">
     <time datetime="2014-12-08T07:51:16.000Z" itemprop="datePublished">Dec 8 2014</time>
-    Updated:<time datetime="2014-12-08T07:53:28.000Z" itemprop="dateModified">Dec 8 2014</time>
+    Updated:<time datetime="2014-12-10T10:34:43.000Z" itemprop="dateModified">Dec 10 2014</time>
     
   </p>
 </header>
@@ -94,12 +98,42 @@ tags:前端
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.</span> <span class="toc-text">tags:前端</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">编写可维护的JavaScript错误</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.1.</span> <span class="toc-text">tags:前端</span></a></li></ol></li></ol>
 		</div>
 		
-		<p>layout: _posts<br>title: 编写可维护的JavaScript错误注解<br>date: 2014-12-08 15:51:15</p>
+		<p><h1 style="color:#2cc185">编写可维护的JavaScript错误</h1><br>date: 2014-12-08 15:51:15</p>
 <h2 id="tags:前端">tags:前端</h2>
-<html lang=""><br><head><br>    <meta charset="UTF-8"><br>    <title>Document</title><br>    <style><br>        .hahaha{<br>            width:100px;<br>            height:100px;<br>            background: #2cc185;<br>        }<br>    </style><br></head><br><body><br><div id="content"></div><br><script><br>    function DOMWrapper(element){<br>     this.element =element;<br>     }<br>     DOMWrapper.prototype.addClass = function (className) {<br>     this.element.className += ‘’ +className;<br>     }<br>     DOMWrapper.prototype.remove = function () {<br>     this.element.parentNode.removeChild(this.element);<br>     }<br>     var hehe = new DOMWrapper(document.getElementById(“content”));<br><br>     //alert(hehe.element.tagName.toLowerCase());<br>     hehe.addClass(“hahaha”);<br>    // var nima = document.getElementById(‘content’);<br>    // nima.className = ‘hahaha’;<br><br></script><br></body><br></html>  
+<pre><code><span class="tag">&lt;<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+<span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css">
+    <span class="class">.hahaha</span><span class="rules">{
+        <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">100px</span></span></span>;
+        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">100px</span></span></span>;
+        <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#2cc185</span></span></span>;
+    <span class="rule">}</span></span>
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"content"</span> &gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+<span class="function"><span class="keyword">function</span> <span class="title">DOMWrapper</span><span class="params">(element)</span></span>{
+ <span class="keyword">this</span>.element =element;
+ }
+ DOMWrapper.prototype.addClass = <span class="function"><span class="keyword">function</span> <span class="params">(className)</span> </span>{
+ <span class="keyword">this</span>.element.className += <span class="string">''</span> +className;
+ }
+ DOMWrapper.prototype.remove = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
+ <span class="keyword">this</span>.element.parentNode.removeChild(<span class="keyword">this</span>.element);
+ }
+ <span class="keyword">var</span> hehe = <span class="keyword">new</span> DOMWrapper(<span class="built_in">document</span>.getElementById(<span class="string">"content"</span>));
+
+ <span class="comment">//alert(hehe.element.tagName.toLowerCase());</span>
+ hehe.addClass(<span class="string">"hahaha"</span>);
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -146,7 +180,7 @@ tags:前端
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.</span> <span class="toc-text">tags:前端</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">编写可维护的JavaScript错误</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.1.</span> <span class="toc-text">tags:前端</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
