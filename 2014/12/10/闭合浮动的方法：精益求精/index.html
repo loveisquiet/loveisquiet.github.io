@@ -12,14 +12,9 @@
     
     <meta name="author" content="为猫画眉">
     
-    <meta name="description" content="触发BFC到底有什么作用，是否能阻止外边距的叠加date: 2014-12-10 17:25:51
+    <meta name="description" content="闭合浮动的方法，精益求精date: 2014-12-10 18:50:35
 tags:CSS
-    #one{
-        background: #2cc185;
-        margin:100px 0;
-    }
-    #two{
-        floa">
+display：table-cell，display：inline-block等只要触发了BFC的属性值都可以闭合浮动。从各个方面比较，after伪元素闭合浮动无疑是相对比较好的解决方案了，下面详细说说该方">
     
     
     
@@ -82,15 +77,15 @@ tags:CSS
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/12/10/触发BFC到底有什么作用，是否能阻止外边距的叠加/" title="" itemprop="url"></a>
+      <a href="/2014/12/10/闭合浮动的方法：精益求精/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="为猫画眉">为猫画眉</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-12-10T09:25:51.000Z" itemprop="datePublished">Dec 10 2014</time>
-    Updated:<time datetime="2014-12-10T10:32:23.000Z" itemprop="dateModified">Dec 10 2014</time>
+    <time datetime="2014-12-10T10:50:35.000Z" itemprop="datePublished">Dec 10 2014</time>
+    Updated:<time datetime="2014-12-10T10:55:02.000Z" itemprop="dateModified">Dec 10 2014</time>
     
   </p>
 </header>
@@ -99,72 +94,25 @@ tags:CSS
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">触发BFC到底有什么作用，是否能阻止外边距的叠加</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:CSS"><span class="toc-number">1.1.</span> <span class="toc-text">tags:CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过触发BFC闭合浮动的各种效果："><span class="toc-number">1.2.</span> <span class="toc-text">通过触发BFC闭合浮动的各种效果：</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">闭合浮动的方法，精益求精</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:CSS"><span class="toc-number">1.1.</span> <span class="toc-text">tags:CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#需要注意的是："><span class="toc-number">1.1.1.</span> <span class="toc-text">需要注意的是：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备注"><span class="toc-number">1.1.2.</span> <span class="toc-text">备注</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
-		<p><h1 style="color:#2cc185">触发BFC到底有什么作用，是否能阻止外边距的叠加</h1><br>date: 2014-12-10 17:25:51</p>
+		<p><h1 style="color:#2cc185">闭合浮动的方法，精益求精</h1><br>date: 2014-12-10 18:50:35</p>
 <h2 id="tags:CSS">tags:CSS</h2>
-<pre><code>    <span class="comment">#one{</span>
-        background: <span class="comment">#2cc185;</span>
-        margin:<span class="number">100</span>px <span class="number">0</span>;
-    }
-    <span class="comment">#two{</span>
-        float: left;
-        width:<span class="number">200</span>px;
-        height:<span class="number">100</span>px;
-        background:<span class="comment">#A78787;</span>
-    }
-    <span class="comment">#three{</span>
-        width:<span class="number">100</span>px;
-        height:<span class="number">100</span>px;
-        background: orangered;
-        margin:<span class="number">100</span>px <span class="number">0</span>;
-        overflow: hidden;
-    }
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"one"</span>&gt;我是一
-   &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"two"</span>&gt;我是二&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"three"</span>&gt;我是三&lt;/<span class="keyword">div</span>&gt;
-</code></pre><h2 id="通过触发BFC闭合浮动的各种效果：">通过触发BFC闭合浮动的各种效果：</h2>
-<p>  在#one中写入下列样式产生的效果：  </p>
-<ol>
-<li>overflow:hidden;<br><head><br><meta charset="UTF-8"><br><title>Document</title><br><style><h1 id="one{">one{</h1>
-<pre><code>  <span class="attribute">background</span><span class="value">: <span class="hexcolor">#2cc185</span>;</span>
-  <span class="attribute">overflow</span><span class="value">:hidden;</span>
-</code></pre>  }<h1 id="two{">two{</h1>
-<pre><code>  <span class="attribute">float</span><span class="value">: left;</span>
-  <span class="attribute">width</span><span class="value">:<span class="number">200px</span>;</span>
-  <span class="attribute">height</span><span class="value">:<span class="number">100px</span>;</span>
-  <span class="attribute">background</span><span class="value">:<span class="hexcolor">#A78787</span>;</span>
-</code></pre>  }<h1 id="three{">three{</h1>
-<pre><code>  <span class="attribute">width</span><span class="value">:<span class="number">100px</span>;</span>
-  <span class="attribute">height</span><span class="value">:<span class="number">100px</span>;</span>
-  <span class="attribute">background</span><span class="value">: orangered;</span>
-  <span class="attribute">overflow</span><span class="value">: hidden;</span>
-</code></pre>  }<br></style><br></head><body><br><div id="one">我是一<br><div id="two">我是二</div><br></div><br></body><br>2.  display:inline-block;float(不会产生外边距叠加)||<br>display:table;（不会产生外边距）||<br>display:table-cell;，这三者闭合浮动产生的效果相同<br><head><br><meta charset="UTF-8"><br><title>Document</title><br><style><br>  #onee{<br>      background: #2cc185;<br>      display:inline-block;<br>  }<br>  #twoe{<br>      float: left;<br>      width:200px;<br>      height:100px;<br>      background:#A78787;<br>  }<br>  #three{<br>      width:100px;<br>      height:100px;<br>      background: orangered;<br>      overflow: hidden;<br>  }<br></style><br></head><br><body><br><div id="onee">我是一<br><div id="twoe">我是二</div><br></div><br></body><br>3.display:table-caption;<br><head><br><meta charset="UTF-8"><br><title>Document</title><br><style><br>  #oneee{<br>      background: #2cc185;<br>      display:table-caption;<br>  }<br>  #twoee{<br>      float: left;<br>      width:200px;<br>      height:100px;<br>      background:#A78787;<br>  }<br>  #three{<br>      width:100px;<br>      height:100px;<br>      background: orangered;<br>      overflow: hidden;<br>  }<br></style><br></head><br><body><br><div id="oneee">我是一<br><div id="twoee">我是二</div><br></div><br></body>
+<p>display：table-cell，display：inline-block等只要触发了BFC的属性值都可以闭合浮动。从各个方面比较，after伪元素闭合浮动无疑是相对比较好的解决方案了，下面详细说说该方法。</p>
+<pre><code><span class="class">.clearfix</span><span class="pseudo">:after</span> <span class="rules">{<span class="rule"><span class="attribute">content</span>:<span class="value"><span class="string">"."</span></span></span>; <span class="rule"><span class="attribute">display</span>:<span class="value">block</span></span>; <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">0</span></span></span>; <span class="rule"><span class="attribute">visibility</span>:<span class="value">hidden</span></span>; <span class="rule"><span class="attribute">clear</span>:<span class="value">both</span></span>; <span class="rule">}</span></span>
+<span class="class">.clearfix</span> <span class="rules">{ <span class="rule">*<span class="attribute">zoom</span>:<span class="value"><span class="number">1</span></span></span>; <span class="rule">}</span></span>
 
-</li>
-</ol>
-<ol>
-<li>position:absolute;<br> <head><br> <meta charset="UTF-8"><br> <title>Document</title><br> <style><pre><code> <span class="id">#oneeeee</span><span class="rules">{
-     <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#2cc185</span></span></span>;
-     <span class="rule"><span class="attribute">position</span>:<span class="value">absolute</span></span>;
- <span class="rule">}</span></span>
- <span class="id">#twoeeee</span><span class="rules">{
-     <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;
-     <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">200px</span></span></span>;
-     <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">100px</span></span></span>;
-     <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="hexcolor">#A78787</span></span></span>;
- <span class="rule">}</span></span>
- <span class="id">#three</span><span class="rules">{
-     <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">100px</span></span></span>;
-     <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">100px</span></span></span>;
-     <span class="rule"><span class="attribute">background</span>:<span class="value"> orangered</span></span>;
-     <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;
- <span class="rule">}</span></span>
-</code></pre> </style><br></head><body><br><div id="oneeeee">我是一<br> <div id="twoeeee">我是二</div><br></div><br></body>
-</li>
-</ol>
+1) <span class="tag">display</span><span class="pseudo">:block</span> 使生成的元素以块级元素显示,占满剩余空间;
+2) <span class="tag">height</span><span class="pseudo">:0</span> 避免生成内容破坏原有布局的高度。
+3) <span class="tag">visibility</span><span class="pseudo">:hidden</span> 使生成的内容不可见，并允许可能被生成内容盖住的内容可以进行点击和交互;
+4）通过 <span class="tag">content</span><span class="pseudo">:"</span>."生成内容作为最后一个元素，至于<span class="tag">content</span>里面是点还是其他都是可以的，例如<span class="tag">oocss</span>里面就有经典的 <span class="tag">content</span><span class="pseudo">:"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span>,有些版本可能<span class="tag">content</span> 里面内容为空,一丝冰凉是不推荐这样做的,<span class="tag">firefox</span>直到7<span class="class">.0</span> <span class="tag">content</span>:”" 仍然会产生额外的空隙；
+5）<span class="tag">zoom</span>：1 触发<span class="tag">IE</span> <span class="tag">hasLayout</span>。通过分析发现，除了<span class="tag">clear</span>：<span class="tag">both</span>用来闭合浮动的，其他代码无非都是为了隐藏掉<span class="tag">content</span>生成的内容，这也就是其他版本的闭合浮动为什么会有<span class="tag">font-size</span>：0，<span class="tag">line-height</span>：0。
+</code></pre><p>精益求精方案一：<br>    相对于空标签闭合浮动的方法代码似乎还是有些冗余，通过查询发现Unicode字符里有一个“零宽度空格”，也就是U+200B ，这个字符本身是不可见的，所以我们完全可以省略掉 visibility:hidden了<br>    .clearfix:after {content:”\200B”; display:block; height:0; clear:both; }<br>    .clearfix { <em>zoom:1; }.<br>精益求精方案二：<br>    由Nicolas Gallagher 大湿提出来的,原文:A new micro clearfix hack，该方法也不存在firefox中空隙的问题。<br>    /</em> For modern browsers <em>/<br>    .cf:before,.cf:after {<br>    content:””;<br>    display:table;<br>    }<br>    .cf:after { clear:both; }/</em> For IE 6/7 (trigger hasLayout) */<br>    .cf { zoom:1; }</p>
+<h3 id="需要注意的是：">需要注意的是：</h3>
+<p>上面的方法用到了  ：before伪元素，很多人对这个有些迷惑，到底我什么时候需要用before呢？为什么方案一没有呢？其实它是用来处理margin边距重叠的，由于内部元素 float 创建了BFC，导致内部元素的margin-top和 上一个盒子的margin-bottom 发生叠加。如果这不是你所希望的，那么就可以加上before，如果只是单纯的闭合浮动，after就够了！并不是如同大漠《Clear Float》一文所说的：但只使用clearfix:after时在跨浏览器兼容问题会存在一个垂直边距叠加的bug，这不是bug，是BFC应该有的特性。</p>
+<h3 id="备注">备注</h3>
+<p>在实际开发中，改进方案一由于存在Unicode字符不适合内嵌CSS的GB2312编码的页面，使用方案7完全可以解决我们的需求了，改进方案二等待大家的进一步实践。方案3、4通过overflow闭合浮动，实际上已经创建了新的 块级格式化上下文，这将导致其布局和相对于浮动的行为等发生一系列的变化，闭合浮动只不过是一系列变化中的一个作用而已。所以为了闭合浮动去改变全局特性，这是不明智的，带来的风险就是一系列的bug，比如firefox 早期版本产生 focus，截断绝对定位的层等等。始终要明白，如果单单只是需要闭合浮动，overflow就不要使用，而不是某些文章所说的“慎用”。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -174,7 +122,7 @@ tags:CSS
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/12/10/触发BFC到底有什么作用，是否能阻止外边距的叠加/" data-title="loveisquiet" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/12/10/闭合浮动的方法：精益求精/" data-title="loveisquiet" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -183,17 +131,9 @@ tags:CSS
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/12/10/闭合浮动的方法：精益求精/" title="">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  (no title)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/12/10/W3C关于标签默认值的标准/"  title="">
+<a href="/2014/12/10/触发BFC到底有什么作用，是否能阻止外边距的叠加/"  title="">
  <strong>NEXT:</strong><br/> 
  <span>(no title)
 </span>
@@ -212,7 +152,7 @@ tags:CSS
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">触发BFC到底有什么作用，是否能阻止外边距的叠加</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:CSS"><span class="toc-number">1.1.</span> <span class="toc-text">tags:CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过触发BFC闭合浮动的各种效果："><span class="toc-number">1.2.</span> <span class="toc-text">通过触发BFC闭合浮动的各种效果：</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">闭合浮动的方法，精益求精</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:CSS"><span class="toc-number">1.1.</span> <span class="toc-text">tags:CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#需要注意的是："><span class="toc-number">1.1.1.</span> <span class="toc-text">需要注意的是：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备注"><span class="toc-number">1.1.2.</span> <span class="toc-text">备注</span></a></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
