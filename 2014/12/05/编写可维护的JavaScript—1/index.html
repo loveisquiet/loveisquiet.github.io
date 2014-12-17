@@ -14,9 +14,10 @@
     
     <meta name="description" content="编写可维护的javascriptdate: 2014-12-05 19:53:04
 tags:前端
-  /*
- ###关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象
- /    //不好的做法，因为事件处理程序包含了应用逻辑function handleClick(event){ ">
+关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象
+//不好的做法，因为事件处理程序包含了应用逻辑
+function handleClick(event){
+var popup = do">
     
     
     
@@ -87,7 +88,7 @@ tags:前端
     </p>
   <p class="article-time">
     <time datetime="2014-12-05T11:53:04.000Z" itemprop="datePublished">Dec 5 2014</time>
-    Updated:<time datetime="2014-12-10T10:35:13.000Z" itemprop="dateModified">Dec 10 2014</time>
+    Updated:<time datetime="2014-12-17T04:55:43.000Z" itemprop="dateModified">Dec 17 2014</time>
     
   </p>
 </header>
@@ -96,17 +97,78 @@ tags:前端
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">编写可维护的javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.1.</span> <span class="toc-text">tags:前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于各种比较，以及数据类型检测"><span class="toc-number">1.1.1.</span> <span class="toc-text">关于各种比较，以及数据类型检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将配置数据从代码中分离出来"><span class="toc-number">1.2.</span> <span class="toc-text">将配置数据从代码中分离出来</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">编写可维护的javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.1.</span> <span class="toc-text">tags:前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于事件处理1-典型用法_2-隔离应用逻辑_3-不要分发事件对象"><span class="toc-number">1.1.1.</span> <span class="toc-text">关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于各种比较，以及数据类型检测"><span class="toc-number">1.1.2.</span> <span class="toc-text">关于各种比较，以及数据类型检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将配置数据从代码中分离出来"><span class="toc-number">1.2.</span> <span class="toc-text">将配置数据从代码中分离出来</span></a></li></ol></li></ol>
 		</div>
 		
 		<p><h1 style="color:#2cc185">编写可维护的javascript</h1><br>date: 2014-12-05 19:53:04</p>
 <h2 id="tags:前端">tags:前端</h2>
-<p>  /*</p>
-<pre><code> <span class="comment">###关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象</span>
-</code></pre><p> <em>/<br>    //不好的做法，因为事件处理程序包含了应用逻辑<br>function handleClick(event){<br>    var popup = document.getElementById(‘div’);<br>    popup.style.left = event.clientX +’px’;<br>    popup.style.top = event.clientY + ‘px’;<br>    popup.className = ‘reveal’;<br>}<br>    element.addEventListener(‘click’,handleClick,false);<br>    //怎样将应用逻辑从事件处理程序中抽离<br>    //一下代码就将应用逻辑现在转移到了EventUntil.showPopup方法中<br>    var EventUntil = {<br>        handleClick: function(event) {<br>            this.showPopup(event);<br>        }<br>        showPopup: function(event) {<br>            var popup = document.getElementById(‘div’);<br>            popup.style.left = event.clientX +’px’;<br>            popup.style.top = event.clientY +’px’;<br>            popup.className = ‘reveal’;<br>        }<br>    }<br>    element.addEventListener(‘click’, function(event) {<br>        EventUntil.handleClick(event);<br>    },false);<br>    //在以上的代码上不要分发事件对象<br>    //好的API一定是对于期望和依赖都是透明的<br>    //在大型的应用中代码不够明晰就会导致BUG<br>    //综上较好的写法如下<br>    var EventUntil = {<br>        handleClick: function(event) {<br>            event.preventDefault();<br>            event.stopPropagation();<br>            this.showPopup(event.clientX,event.clientY);<br>        }<br>        //逻辑不需要对event对象产生依赖<br>        showPopup: function(x,y) {<br>            var popup = document.getElementById(‘div’);<br>            popup.style.left =x  +’px’;<br>            popup.style.top = y +’px’;<br>            popup.className = ‘reveal’;<br>        }<br>    }<br>    element.addEventListener(‘click’, function(event) {<br>        EventUntil.handleClick(event);<br>    },false);<br> /</em></p>
-<h3 id="关于各种比较，以及数据类型检测">关于各种比较，以及数据类型检测</h3>
-<p> */<br>    //检测原始值，数字，字符串，布尔值，undefinde，较好的方法是利用typeop<br>    //检测引用类型（除了原始值之外的都是引用类型），用instanceof（Date,RegExp,Error）<br>    if(value instanceof Date){<br>        console.log(value.getFullYear());<br>    }<br>    if(value instanceof RegExp){<br>        if(value.test(anotherValue)){<br>            console.log(‘matches’);<br>        }<br>    }<br>    //instanceof 不仅检测构造这个对象的构造器，还检测原型链，<br>    var now = new Date();<br>    alert(now instanceof Date);//true<br>    alert(now instanceof Object);//true<br>    //instanceof 检测的问题：不同框架中即使是完全相同的构造器产生的相同实例无法对另一个框架中的构造器instanceof<br>    //检测函数<br>    //####在检测函数和数组的时候一般不用到instanceof方法<br>    if(typeof myFunc ===’function’){</p>
-<pre><code>}
+<h3 id="关于事件处理1-典型用法_2-隔离应用逻辑_3-不要分发事件对象">关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象</h3>
+<pre><code><span class="comment">//不好的做法，因为事件处理程序包含了应用逻辑</span>
+<span class="function"><span class="keyword">function</span> <span class="title">handleClick</span><span class="params">(event)</span></span>{
+<span class="keyword">var</span> popup = <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>);
+popup.style.left = event.clientX +<span class="string">'px'</span>;
+popup.style.top = event.clientY + <span class="string">'px'</span>;
+popup.className = <span class="string">'reveal'</span>;
+}
+element.addEventListener(<span class="string">'click'</span>,handleClick,<span class="literal">false</span>);
+<span class="comment">//怎样将应用逻辑从事件处理程序中抽离</span>
+<span class="comment">//一下代码就将应用逻辑现在转移到了EventUntil.showPopup方法中</span>
+<span class="keyword">var</span> EventUntil = {
+    handleClick: <span class="function"><span class="keyword">function</span><span class="params">(event)</span> </span>{
+        <span class="keyword">this</span>.showPopup(event);
+    }
+    showPopup: <span class="function"><span class="keyword">function</span><span class="params">(event)</span> </span>{
+        <span class="keyword">var</span> popup = <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>);
+        popup.style.left = event.clientX +<span class="string">'px'</span>;
+        popup.style.top = event.clientY +<span class="string">'px'</span>;
+        popup.className = <span class="string">'reveal'</span>;
+    }
+}
+element.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span><span class="params">(event)</span> </span>{
+    EventUntil.handleClick(event);
+},<span class="literal">false</span>);
+<span class="comment">//在以上的代码上不要分发事件对象</span>
+<span class="comment">//好的API一定是对于期望和依赖都是透明的</span>
+<span class="comment">//在大型的应用中代码不够明晰就会导致BUG</span>
+<span class="comment">//综上较好的写法如下</span>
+<span class="keyword">var</span> EventUntil = {
+    handleClick: <span class="function"><span class="keyword">function</span><span class="params">(event)</span> </span>{
+        event.preventDefault();
+        event.stopPropagation();
+        <span class="keyword">this</span>.showPopup(event.clientX,event.clientY);
+    }
+    <span class="comment">//逻辑不需要对event对象产生依赖</span>
+    showPopup: <span class="function"><span class="keyword">function</span><span class="params">(x,y)</span> </span>{
+        <span class="keyword">var</span> popup = <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>);
+        popup.style.left =x  +<span class="string">'px'</span>;
+        popup.style.top = y +<span class="string">'px'</span>;
+        popup.className = <span class="string">'reveal'</span>;
+    }
+}
+element.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span><span class="params">(event)</span> </span>{
+    EventUntil.handleClick(event);
+},<span class="literal">false</span>);
+</code></pre><h3 id="关于各种比较，以及数据类型检测">关于各种比较，以及数据类型检测</h3>
+<pre><code><span class="comment">//检测原始值，数字，字符串，布尔值，undefinde，较好的方法是利用typeop</span>
+<span class="comment">//检测引用类型（除了原始值之外的都是引用类型），用instanceof（Date,RegExp,Error）</span>
+<span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="built_in">Date</span>){
+    <span class="built_in">console</span>.log(value.getFullYear());
+}
+<span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>){
+    <span class="keyword">if</span>(value.test(anotherValue)){
+        <span class="built_in">console</span>.log(<span class="string">'matches'</span>);
+    }
+}
+<span class="comment">//instanceof 不仅检测构造这个对象的构造器，还检测原型链，</span>
+<span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>();
+alert(now <span class="keyword">instanceof</span> <span class="built_in">Date</span>);<span class="comment">//true</span>
+alert(now <span class="keyword">instanceof</span> <span class="built_in">Object</span>);<span class="comment">//true</span>
+<span class="comment">//instanceof 检测的问题：不同框架中即使是完全相同的构造器产生的相同实例无法对另一个框架中的构造器instanceof</span>
+<span class="comment">//检测函数</span>
+<span class="comment">//####在检测函数和数组的时候一般不用到instanceof方法</span>
+<span class="keyword">if</span>(<span class="keyword">typeof</span> myFunc ===<span class="string">'function'</span>){
+
+}
 <span class="comment">//检测函数在IE9之前，使用typeof检测DOM节点的方法如document.getElementById时返回Object</span>
 <span class="comment">//在IE9之前的方法</span>
 <span class="keyword">if</span>(<span class="string">'getElementById'</span> <span class="keyword">in</span> <span class="built_in">document</span>){
@@ -128,10 +190,20 @@ tags:前端
 <span class="keyword">if</span>(<span class="string">'hanOwnProperty'</span> <span class="keyword">in</span> object &amp;&amp; object.hasOwnProperty(<span class="string">'related'</span>)){
     <span class="comment">//不确定是否是DOM对象</span>
 }
-</code></pre><p>/*</p>
-<h2 id="将配置数据从代码中分离出来">将配置数据从代码中分离出来</h2>
-<p> */<br>    //####首先，什么是配置数据？如下几点<br>    1.URL<br>    2.需要展现给用户的字符串<br>    3.重复的值<br>    4.设置（比如每一页的配置项）<br>    5.任何可能发生变更的值<br>    解决方法：将配置数据保存在外部的一个对象中；<br>    通过对象属性调用数据；<br>    //####保存配置数据<br>    可用的方法如下：<br>    将配置数据存放于非JavaScript文件中。例如（Java properties file）<br>    然后将这个文件转换为JavaScript可用的文件：JSON/JSONP</p>
-  
+</code></pre><h2 id="将配置数据从代码中分离出来">将配置数据从代码中分离出来</h2>
+<pre><code>//<span class="comment">####首先，什么是配置数据？如下几点</span>
+<span class="number">1.</span><span class="built_in">URL</span>
+<span class="number">2.</span>需要展现给用户的字符串
+<span class="number">3.</span>重复的值
+<span class="number">4.</span>设置（比如每一页的配置项）
+<span class="number">5.</span>任何可能发生变更的值
+解决方法：将配置数据保存在外部的一个对象中；
+通过对象属性调用数据；<span class="comment">
+//####保存配置数据</span>
+可用的方法如下：
+将配置数据存放于非JavaScript文件中。例如（Java properties <span class="built_in">file</span>）
+然后将这个文件转换为JavaScript可用的文件：JSON/JSONP
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -178,7 +250,7 @@ tags:前端
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">编写可维护的javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.1.</span> <span class="toc-text">tags:前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于各种比较，以及数据类型检测"><span class="toc-number">1.1.1.</span> <span class="toc-text">关于各种比较，以及数据类型检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将配置数据从代码中分离出来"><span class="toc-number">1.2.</span> <span class="toc-text">将配置数据从代码中分离出来</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">编写可维护的javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:前端"><span class="toc-number">1.1.</span> <span class="toc-text">tags:前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于事件处理1-典型用法_2-隔离应用逻辑_3-不要分发事件对象"><span class="toc-number">1.1.1.</span> <span class="toc-text">关于事件处理1.典型用法 2.隔离应用逻辑 3.不要分发事件对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于各种比较，以及数据类型检测"><span class="toc-number">1.1.2.</span> <span class="toc-text">关于各种比较，以及数据类型检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将配置数据从代码中分离出来"><span class="toc-number">1.2.</span> <span class="toc-text">将配置数据从代码中分离出来</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
